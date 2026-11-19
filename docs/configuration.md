@@ -22,9 +22,10 @@ Settings live in `BepInEx/config/com.scramd.nuclearboxselect.cfg` (taken over on
 | Visual | `BoxOutlineColorAdditive` | `7CE38BCC` | Add outline. |
 | Visual | `BoxOutlineColorRemove` | `FF5A5ACC` | Remove outline. |
 | Visual | `OverlaySortingOrder` | `32000` | Order for the mod's screen overlay canvas, read only when created. Restart to change an existing overlay. |
+| Target list | `FilterNeutral` | `true` | Creates NTL when the Target List starts. Restart after changing this setting; it is not a live enable/disable gate for an existing button. |
 | Diagnostics | `VerboseLogging` | `true` | Selection, input and navigation details. Startup patch errors still log when false. |
 
-The Target List filters are the stock ones. Since 0.5.0 the mod adds no filter button (the former NTL neutral filter was removed at the user's request, 2026-11-19, so the pane behaves and looks as in the stock game). An old `[Target list] FilterNeutral` line in a saved settings file does nothing.
+NTL starts lit, meaning neutrals pass through unless another filter excludes them. Left click toggles it. Reset restores it lit. As a cloned native button outside the stock lists, its right click turns it on but does not isolate neutrals. Exclusion adds dimming and blocks selection; it does not hide the icon GameObject. Layout retains the inherited half-width button.
 
 
 Old configuration files can retain orphaned entries for removed features. The plugin no longer binds or reads them. No migration deletes those saved values or native saved input maps.

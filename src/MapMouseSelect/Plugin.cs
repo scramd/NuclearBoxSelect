@@ -20,7 +20,7 @@ namespace MapMouseSelect
         internal const string LegacyGuid = "com.kerbiter.mapmouseselect";
 
         /// <summary>Lives in three places: this constant, &lt;Version&gt; in the csproj, and version in meta.json.</summary>
-        public const string PluginVersion = "0.5.0";
+        public const string PluginVersion = "0.4.0";
 
         /// <summary>Draw order for the mod's overlay canvas, above the map UI.</summary>
         internal const int DefaultOverlaySortingOrder = 32000;
@@ -46,6 +46,7 @@ namespace MapMouseSelect
         internal static ConfigEntry<Color> BoxOutlineColor { get; private set; }
         internal static ConfigEntry<Color> BoxOutlineColorAdditive { get; private set; }
         internal static ConfigEntry<Color> BoxOutlineColorRemove { get; private set; }
+        internal static ConfigEntry<bool> FilterNeutral { get; private set; }
 
         /// <summary>Whether the map drag follows the cursor. Off leaves vanilla's frame-time-scaled pan in place.</summary>
         internal static ConfigEntry<bool> MapPanFix { get; private set; }
@@ -142,6 +143,9 @@ namespace MapMouseSelect
             BoxOutlineColorRemove = Config.Bind("Visual", "BoxOutlineColorRemove", Hex("#FF5A5ACC"),
                 "Outline color for a deselecting marquee (Control held).");
 
+            FilterNeutral = Config.Bind("Target list", "FilterNeutral", true,
+                "Add a NTL button to the Target List pane, for units that are neither friendly nor hostile.");
+
             MapPanFix = Config.Bind("Behavior", "MapPanFix", true,
                 "Make the map follow the cursor while it is dragged, instead of outrunning it. This replaces the "
                 + "frame time vanilla scales the drag by and reads the cursor directly, so off leaves vanilla's "
@@ -217,11 +221,17 @@ namespace MapMouseSelect
                 new[] { typeof(PointerEventData) });
             var iconClickInfo = iconClickTarget != null ? PatchProcessor.GetPatchInfo(iconClickTarget) : null;
 
+            var exclusionsTarget = AccessTools.Method(
+                typeof(TargetListSelector), nameof(TargetListSelector.CheckExclusions));
+            var exclusionsInfo =
+                exclusionsTarget != null ? PatchProcessor.GetPatchInfo(exclusionsTarget) : null;
+
             // The patches are listed by the method they land on, because the point is to tell a silent no-op from
             // a patch that never applied. HarmonyX resolves arguments by name, so a game-side rename loses one.
             var deselectInfo = PatchInfo(AccessTools.Method(typeof(CombatHUD), nameof(CombatHUD.DeSelectUnit)));
             var setAircraftInfo = PatchInfo(AccessTools.Method(typeof(CombatHUD), nameof(CombatHUD.SetAircraft)));
             var removeAircraftInfo = PatchInfo(AccessTools.Method(typeof(CombatHUD), nameof(CombatHUD.RemoveAircraft)));
+            var resetInfo = PatchInfo(AccessTools.Method(typeof(TargetListSelector), nameof(TargetListSelector.ResetFilters)));
             var selectIconInfo = PatchInfo(AccessTools.Method(typeof(MapIcon), nameof(MapIcon.SelectIcon)));
 
             Log.LogInfo(
@@ -233,10 +243,13 @@ namespace MapMouseSelect
                 + ", pan axis call sites=" + MapPanProportionPatch.AxisSites
                 + " | Update prefixes=" + (updateInfo != null ? updateInfo.Prefixes.Count : -1)
                 + " | icon click prefixes=" + (iconClickInfo != null ? iconClickInfo.Prefixes.Count : -1)
+                + " | target filter postfixes="
+                + (exclusionsInfo != null ? exclusionsInfo.Postfixes.Count : -1)
                 + " | deselect prefixes=" + deselectInfo
                 + ", setAircraft postfixes=" + setAircraftInfo
                 + ", removeAircraft postfixes=" + removeAircraftInfo
                 + ", selectIcon postfixes=" + selectIconInfo
+                + ", reset postfixes=" + resetInfo
                 + " | panButton=" + PanButton.Value
                 + ", requireModifier=" + RequireModifier.Value
                 + ", enableInMissionEditor=" + EnableInMissionEditor.Value
