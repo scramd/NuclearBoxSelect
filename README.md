@@ -29,7 +29,7 @@ A box picks the same units a click could pick:
 - A weapon takes at most 128 targets.
 - A plain box with no units in it clears your targets.
 
-The mod adds one filter button to the Target List: **NTL**. Switch it off to keep neutral units out of your selection. The stock buttons can only filter friendly and enemy units.
+The Target List pane and its filter buttons stay exactly as in the stock game.
 
 Without an aircraft the box selects units on the map in the same way a click does. With friendly vehicles or ships selected, a right click on the map sends them there, as in the stock game.
 
@@ -66,7 +66,7 @@ The mod writes `BepInEx/config/com.scramd.nuclearboxselect.cfg`. The first time,
 
 ## Where this comes from
 
-This mod is a fork of **Map Mouse Select (& more)** by **Kerbiter** ([Metadorius/MapMouseSelect](https://github.com/Metadorius/MapMouseSelect)), from upstream commit [`6e08c30`](https://github.com/Metadorius/MapMouseSelect/commit/6e08c30fd6d5315d6ce84650c2f91956e2cb7ab7). The box selection, its drawing, the click behaviour, the map-drag changes, the neutral filter and the stock repairs are Kerbiter's work. The Git history keeps every upstream commit.
+This mod is a fork of **Map Mouse Select (& more)** by **Kerbiter** ([Metadorius/MapMouseSelect](https://github.com/Metadorius/MapMouseSelect)), from upstream commit [`6e08c30`](https://github.com/Metadorius/MapMouseSelect/commit/6e08c30fd6d5315d6ce84650c2f91956e2cb7ab7). The box selection, its drawing, the click behaviour, the map-drag changes and the stock repairs are Kerbiter's work. The Git history keeps every upstream commit.
 
 The fork started on 2026-11-10 with these changes:
 

@@ -9,7 +9,7 @@
     <ImplicitUsings>disable</ImplicitUsings>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-    <Version>0.4.0</Version>
+    <Version>0.5.0</Version>
     <DebugType>portable</DebugType>
     <WarningsAsErrors>false</WarningsAsErrors>
     <!-- Copy the built plugin into the game by default. Set false for CI / packaging builds. -->
@@ -50,12 +50,6 @@
     </Reference>
     <Reference Include="UnityEngine.InputLegacyModule">
       <HintPath>$(ManagedDir)\UnityEngine.InputLegacyModule.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-
-    <!-- The Target List filter buttons carry their labels in TextMeshPro. -->
-    <Reference Include="Unity.TextMeshPro">
-      <HintPath>$(ManagedDir)\Unity.TextMeshPro.dll</HintPath>
       <Private>false</Private>
     </Reference>
 
