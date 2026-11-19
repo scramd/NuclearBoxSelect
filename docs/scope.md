@@ -9,7 +9,6 @@ The mod has one feature: selecting units on the map with a box. Everything else 
 | Box selection | A left drag selects the units inside. Plain replaces, Shift adds, Ctrl removes. An empty plain box clears. |
 | Applying the result | With an aircraft, the units go into the current weapon's target list in one update, up to the game's limit of 128. Without an aircraft, the units become the map selection, which the stock game uses for move orders to friendly vehicles and ships. |
 | Click behaviour | A plain click selects only that unit. Shift + click adds, or removes a unit that is already selected. |
-| Neutral filter (NTL) | A Target List button that keeps neutral units out of a selection. The stock filters cover only friendly and enemy units. |
 
 ## Replacements for displaced stock controls
 
@@ -44,6 +43,7 @@ The mod has one feature: selecting units on the map with a box. Everything else 
 | Double left click for the camera jump | Not needed. The jump stays on its stock button. |
 | Camera wheel fix | The wheel zoomed the camera behind the map. Not about selection; it belongs in a mod of its own. |
 | Colour rerouting for map icons | The game does this itself since 0.34.6. The old patch no longer builds against the current game. |
+| Neutral filter button (NTL) | Removed in 0.5.0 at the user's request (2026-11-19): the Target List pane must look and behave as in the stock game. The copied button sat outside the game's filter lists, so Reset lit up at mission start, a right click did not isolate it and it squeezed the faction row. |
 
 Removals are scope cuts. They do not say that the original features were poor.
 

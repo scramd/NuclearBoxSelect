@@ -22,11 +22,8 @@ Method $game CameraFreeState UpdateState 'CameraStateManager cam'
 Method $game CameraControlledState UpdateState 'CameraStateManager cam'
 Method $game CombatHUD SetAircraft 'Aircraft aircraft'
 Method $game CombatHUD RemoveAircraft ''
-Method $game TargetListSelector Start ''
 Method $game TargetListSelector CheckExclusions 'Unit u' 'System.Boolean'
-Method $game TargetListSelector ResetFilters ''
-Method $game TargetListSelector_ToggleButton TargetListSelector_ToggleButton_OnThemeGroupChanged ''
-foreach ($item in @(@($game,'DynamicMap','onAllDeselected'),@($game,'CombatHUD','selectSound'),@($game,'CombatHUD','deselectSound'),@($game,'TargetListSelector_ToggleButton','context'),@($game,'TargetListSelector','resetButtonImage'),@($game,'TargetListSelector','resetButtonLabel'))) {
+foreach ($item in @(@($game,'DynamicMap','onAllDeselected'),@($game,'CombatHUD','selectSound'),@($game,'CombatHUD','deselectSound'))) {
     $f = $item[0].MainModule.GetType($item[1]).Fields | Where-Object Name -eq $item[2]
     if (!$f) { throw "Missing $($item[1]).$($item[2])" }
     Write-Output "Field OK: $($item[1]).$($item[2]): $($f.FieldType.FullName)"
